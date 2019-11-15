@@ -1,4 +1,5 @@
 # Collecte de données avec python
+
 ## Importer un ficher CSV
 Pour importer un fichier csv, nous utilisons la commande read_csv de la library Pandas
 ```{python}
@@ -6,6 +7,12 @@ import pandas as pd
 df = pd.read_csv("chemin/data.csv")
 ```
 Grâce à la fonction précédante nous avons stocké notre CSV dans un DataFrame. Nous verrons plus loin comment manipuler les données d'un DataFrame
+
+## Importer un fichier hdf5
+Avec la même librairie il est possible d'importer des fichier hdf5
+```{python}
+df = pd.read_hdf('chemin/data.hdf5')
+```
 
 ## Importer un fichier dbf
 pour importer un fichier dbf, nous utilisons la librarie dbf
@@ -167,4 +174,17 @@ object_BeautifulSoup = BeautifulSoup(code_source.text, 'html.parser')
 element = object_BeautifulSoup.find_all('div', class_ = 'name_class')
 result = element.h2
 print(resulat)
+```
+
+## Importer une table BigQuery
+Pour récperer le resultats d'une requete BigQuery, il est possible d'utiliser l'API de google. Pour ce faire il est necessaire disposer une clef API. Sur la console de Google Cloud Platform il est possible de creér un compte service pour disposer de droit (IAM -> comptes de services).
+```{python}
+from google.cloud import bigquery
+client = bigquery.Client()
+
+sql = (
+    "SELECT * FROM `project_id.dataset_id.table_id` LIMIT 10"
+)
+
+data = client.query(sql).to_dataframe()
 ```
