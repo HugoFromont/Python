@@ -188,3 +188,15 @@ new_data = data >> group_by(X.variable1) >> summarize(new_feature = X.variable2.
 inner_join_data = inner_join(data1, data2, on = "ID")
 left_join_data = left_join(data1, data2, on = "ID")
 ```
+
+
+## Echantillonnage des données
+Dans le cadre d'un projet de Machine learning, nous divisons notre base de données en 2 échantillons (Apprentissage et test), Voici la commande
+```{python}
+from sklearn.model_selection import train_test_split
+
+x_train, x_valid, y_train, y_valid = train_test_split(features, targets, test_size=0.3, random_state=123)
+
+print("x_train =",x_train.shape,"  |  y_train =",y_train.shape)
+print("x_valid =",x_valid.shape,"  |  y_valid =",y_valid.shape)
+```
