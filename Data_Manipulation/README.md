@@ -161,3 +161,30 @@ pd.crosstab(df.variable1,df.variable1)
 # Tester l'égalité de deux DataFrames
 print(pd.DataFrame.equals(df1, df2))
 ```
+
+
+## Manipulation des données avec dplython
+Pour manipuler des données sur python, on peut aussi utiliser le package dplython, à condition d'importer le package et de transformer votre dataframe en un objet "DplyFrame"
+
+```{python}
+from dplython import (DplyFrame, X, select, sift, arrange, mutate, group_by, summarize) 
+data = DplyFrame(data)
+```
+
+Il est maintenant possible d'effectuer les opérations suivantes
+
+```{python}
+# Sélection
+new_data = data >> select(X.variable1,X.variable2,X.variable3)
+# Filtres
+new_data = data >> sift(X.variable1 > valeur1 , X.variable1 < valeur2)
+# Trier
+new_data = data >> arrange(X.variable1, X.variable2)
+# Ajouter une nouvelle variable
+new_data = data >> mutate(new_feature = X.feature1-100, new_feature2 = X.feature1/X.feature2)
+# Agrégation
+new_data = data >> group_by(X.variable1) >> summarize(new_feature = X.variable2.mean())
+# Jointure
+inner_join_data = inner_join(data1, data2, on = "ID")
+left_join_data = left_join(data1, data2, on = "ID")
+```
